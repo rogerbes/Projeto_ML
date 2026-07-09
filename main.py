@@ -158,3 +158,31 @@ X_test_knn[continuous_cols] = scaler.transform(X_test[continuous_cols])
 X_train_tree = X_train_bal
 X_test_tree = X_test
 
+# ==============================================================================
+# FASE 5: MODELAGEM, VALIDAÇÃO E DIAGNÓSTICO DE OVERFITTING
+# ==============================================================================
+"""
+"Para encontrar o equilíbrio ideal e combater o Overfitting, os 
+hiperparâmetros de ambos os modelos é variado. Testei o KNN com K variando entre 3, 5, 7 e 9. 
+Para a Árvore de Decisão, testei as profundidades máximas de 3, 5, 7 e Ilimitada.
+Monitorei a acurácia no Treino e no Teste simultaneamente para avaliar a capacidade 
+de generalização dos modelos."
+"""
+
+print("--- OTIMIZAÇÃO DO KNN ---")
+k_values = [3, 5, 7, 9]
+for k in k_values:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train_knn, y_train_bal)
+    train_acc = knn.score(X_train_knn, y_train_bal)
+    test_acc = knn.score(X_test_knn, y_test)
+    print(f"KNN (K={k}) -> Acurácia Treino: {train_acc:.4f} | Teste: {test_acc:.4f}")
+
+print("\n--- OTIMIZAÇÃO DA ÁRVORE DE DECISÃO ---")
+depths = [3, 5, 7, None]
+for d in depths:
+    tree = DecisionTreeClassifier(max_depth=d, random_state=42)
+    tree.fit(X_train_tree, y_train_bal)
+    train_acc = tree.score(X_train_tree, y_train_bal)
+    test_acc = tree.score(X_test_tree, y_test)
+    print(f"Árvore (Profundidade={d}) -> Acurácia Treino: {train_acc:.4f} | Teste: {test_acc:.4f}")
