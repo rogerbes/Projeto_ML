@@ -1,5 +1,5 @@
 # ==============================================================================
-# FASE 1: ANÁLISE EXPLORATÓRIA DE DADOS (EDA)
+# FASE 1: ANÁLISE EXPLORATÓRIA DE DADOS (AED)
 # ==============================================================================
 """
 Importação das bibliotecas essenciais para manipulação de dados,
