@@ -30,4 +30,4 @@ df = pd.read_csv('credit_risk_dataset.csv')
 
 O arquivo deve estar no mesmo local de execuçao do main.py.
 
-Durante a execução feche os graficos gerados para prosseguir com as demais etapas.
+Durante a execução feche os gráficos gerados para prosseguir com as demais etapas.
