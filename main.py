@@ -100,3 +100,18 @@ for col in df.select_dtypes(include=[np.number]).columns:
 # pois o KNN é sensível a distâncias euclidianas geradas por outliers extremos.
 df = df[df['person_age'] <= 100]
 df = df[df['person_emp_length'] <= 60]
+
+# ==============================================================================
+# FASE 3: FEATURE ENGINEERING (COLUNA CALCULADA)
+# ==============================================================================
+"""
+BLOCO DE EXPLICAÇÃO PARA O VÍDEO:
+"Criação da nova feature para o setor financeiro: 'comprometimento_renda'.
+Ela representa a porcentagem da renda anual do cliente que o empréstimo solicitado 
+ocupa. O cálculo é feito de forma segura após o tratamento de nulos para evitar 
+erros de divisão por zero ou valores indeterminados (NaN)."
+"""
+
+df['comprometimento_renda'] = (df['loan_amnt'] / df['person_income']) * 100
+print("Nova coluna 'comprometimento_renda' criada com sucesso.\n")
+
