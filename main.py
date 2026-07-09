@@ -4,7 +4,7 @@
 """
 Importação das bibliotecas essenciais para manipulação de dados,
 visualização e Machine Learning. Carregamento do arquivo 'credit_risk_dataset.csv'.
-O primeiro passo da EDA é entender a dimensionalidade da base (linhas e colunas), 
+O primeiro passo da AED é entender a dimensionalidade da base (linhas e colunas), 
 identificar os tipos de variáveis e analisar o sumário estatístico para detectar 
 médias, quartis e possíveis anomalias nos dados."
 """
@@ -69,3 +69,4 @@ O gráfico de barras provou um forte desbalanceamento: a maioria dos clientes é
 Isso exige o uso de técnicas de reamostragem (SMOTE) para o modelo não ficar viciado.
 O mapa de calor mostra correlação moderada entre o valor do empréstimo e a renda.
 """
+
