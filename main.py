@@ -105,7 +105,6 @@ df = df[df['person_emp_length'] <= 60]
 # FASE 3: FEATURE ENGINEERING (COLUNA CALCULADA)
 # ==============================================================================
 """
-BLOCO DE EXPLICAÇÃO PARA O VÍDEO:
 "Criação da nova feature para o setor financeiro: 'comprometimento_renda'.
 Ela representa a porcentagem da renda anual do cliente que o empréstimo solicitado 
 ocupa. O cálculo é feito de forma segura após o tratamento de nulos para evitar 
@@ -114,4 +113,48 @@ erros de divisão por zero ou valores indeterminados (NaN)."
 
 df['comprometimento_renda'] = (df['loan_amnt'] / df['person_income']) * 100
 print("Nova coluna 'comprometimento_renda' criada com sucesso.\n")
+
+# ==============================================================================
+# FASE 4: SEPARAÇÃO, BALANCEAMENTO E ESCALONAMENTO SEGURO
+# ==============================================================================
+"""
+"Aplicação da Regra de Ouro da Ciência de Dados. Primeiro, as 
+variáveis categóricas são transformadas em numéricas via One-Hot Encoding. Depois, separo a base em X e y 
+e realizo o split de Treino e Teste (80/20) com o parâmetro 'stratify', garantindo 
+a mesma proporção de inadimplentes em ambas as partições. 
+Para evitar o vazamento de dados (Data Leakage), aplico o SMOTE APENAS na base de treino.
+Por fim, o escalonamento StandardScaler é aplicado exclusivamente nas variáveis contínuas 
+para o KNN. A Árvore de Decisão será treinada com os dados originais, pois ela realiza 
+cortes monotônicos e independe da escala dos dados."
+"""
+
+# 1. Encoding de Variáveis Categóricas
+categorical_cols = df.select_dtypes(include=['object']).columns
+df_encoded = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
+
+# 2. Split de Dados (80% treino, 20% teste)
+X = df_encoded.drop(columns=['loan_status'])
+y = df_encoded['loan_status']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.20, random_state=42, stratify=y
+)
+
+# 3. Balanceamento de Classes (Apenas no TREINO)
+smote = SMOTE(random_state=42)
+X_train_bal, y_train_bal = smote.fit_resample(X_train, y_train)
+
+# 4. Escalonamento Seguro (Apenas variáveis contínuas e focado no KNN)
+continuous_cols = ['person_age', 'person_income', 'person_emp_length', 'loan_amnt', 'loan_int_rate', 'comprometimento_renda']
+
+scaler = StandardScaler()
+X_train_knn = X_train_bal.copy()
+X_test_knn = X_test.copy()
+
+X_train_knn[continuous_cols] = scaler.fit_transform(X_train_bal[continuous_cols])
+X_test_knn[continuous_cols] = scaler.transform(X_test[continuous_cols])
+
+# Para a árvore, usamos os dados balanceados, mas sem a necessidade de escalonamento.
+X_train_tree = X_train_bal
+X_test_tree = X_test
 
