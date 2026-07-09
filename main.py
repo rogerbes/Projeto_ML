@@ -70,3 +70,33 @@ Isso exige o uso de técnicas de reamostragem (SMOTE) para o modelo não ficar v
 O mapa de calor mostra correlação moderada entre o valor do empréstimo e a renda.
 """
 
+# ==============================================================================
+# FASE 2: TRATAMENTO E LIMPEZA (DATA PREP)
+# ==============================================================================
+"""
+"Limpeza: Primeiro são removidas as linhas duplicadas. Depois, identificadas
+as colunas com valores nulos. Os nulos são tratados utilizando a MEDIANA 
+em vez da média. Essa decisão é justificada estatisticamente porque variáveis como 
+renda e taxa de juros possuem distribuições assimétricas e outliers; a média seria 
+distorcida por esses valores extremos, enquanto a mediana permanece robusta."
+"""
+
+# 1. Remoção de Duplicadas
+duplicados_antes = df.duplicated().sum()
+df = df.drop_duplicates()
+print(f"Linhas duplicadas removidas: {duplicados_antes}\n")
+
+# 2. Identificação e Imputação de Nulos
+print("--- VALORES NULOS POR COLUNA ---")
+print(df.isnull().sum(), "\n")
+
+# Imputação por Mediana (Justificativa técnica: mitigar o impacto de outliers)
+for col in df.select_dtypes(include=[np.number]).columns:
+    if df[col].isnull().sum() > 0:
+        df[col] = df[col].fillna(df[col].median())
+
+# 3. Tratamento de Outliers (Tratamento via Clipping/Capagem)
+# Decisão: Limitaremos a idade máxima em 100 anos e o tempo de trabalho em 60 anos,
+# pois o KNN é sensível a distâncias euclidianas geradas por outliers extremos.
+df = df[df['person_age'] <= 100]
+df = df[df['person_emp_length'] <= 60]

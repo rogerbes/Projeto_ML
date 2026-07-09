@@ -28,4 +28,6 @@ pip install pandas numpy matplotlib seaborn scikit-learn imbalanced-learn
 Adicione o arquivo .csv da base de dados credit_risk_dataset.csv na variável
 df = pd.read_csv('credit_risk_dataset.csv')
 
-Nota: O arquivo deve estar no mesmo local de execuçao do main.py.
+O arquivo deve estar no mesmo local de execuçao do main.py.
+
+Durante a execução feche os graficos gerados para prosseguir com as demais etapas.
