@@ -186,3 +186,43 @@ for d in depths:
     train_acc = tree.score(X_train_tree, y_train_bal)
     test_acc = tree.score(X_test_tree, y_test)
     print(f"Árvore (Profundidade={d}) -> Acurácia Treino: {train_acc:.4f} | Teste: {test_acc:.4f}")
+
+    # ==============================================================================
+# FASE 6: AVALIAÇÃO E VEREDITO DE NEGÓCIOS
+# ==============================================================================
+"""
+"Selecionei as duas melhores configurações baseadas no equilíbrio entre treino e teste 
+para evitar overfitting: KNN com K=9 e Árvore com max_depth=7. 
+Agora exibo o Classification Report e a Matriz de Confusão de cada um para 
+tomar a decisão final."
+"""
+
+best_knn = KNeighborsClassifier(n_neighbors=9)
+best_knn.fit(X_train_knn, y_train_bal)
+y_pred_knn = best_knn.predict(X_test_knn)
+
+best_tree = DecisionTreeClassifier(max_depth=7, random_state=42)
+best_tree.fit(X_train_tree, y_train_bal)
+y_pred_tree = best_tree.predict(X_test_tree)
+
+print("\n================ REPORT: KNN (K=9) ================")
+print(classification_report(y_test, y_pred_knn))
+
+print("================ REPORT: ÁRVORE (MAX_DEPTH=7) ================")
+print(classification_report(y_test, y_pred_tree))
+
+# Plotagem das Matrizes de Confusão
+fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+sns.heatmap(confusion_matrix(y_test, y_pred_knn), annot=True, fmt='d', cmap='Blues', ax=ax[0])
+ax[0].set_title('Matriz de Confusão - KNN (K=9)')
+ax[0].set_xlabel('Predito')
+ax[0].set_ylabel('Real')
+
+sns.heatmap(confusion_matrix(y_test, y_pred_tree), annot=True, fmt='d', cmap='Greens', ax=ax[1])
+ax[1].set_title('Matriz de Confusão - Árvore (Profundidade=7)')
+ax[1].set_xlabel('Predito')
+ax[1].set_ylabel('Real')
+
+plt.tight_layout()
+plt.savefig('confusion_matrices.png')
+plt.show()
