@@ -51,7 +51,7 @@ O projeto foi dividido nas seguintes fases metodológicas:
 *   **Outliers:** Aplicação de filtragem limitando a idade máxima em 100 anos e o tempo de trabalho em 60 anos, protegendo a matemática dos algoritmos.
 
 ### Fase 3: Feature Engineering
-*   Criação da variável calculada `comprometimento_renda` ($(\text{loan\_amnt} / \text{person\_income}) \times 100$). O cálculo foi executado estritamente após a limpeza de nulos para mitigar erros de divisão por zero ou infestações de valores `NaN`.
+*   Criação da variável calculada `comprometimento_renda`. O cálculo foi executado estritamente após a limpeza de nulos para mitigar erros de divisão por zero ou infestações de valores `NaN`.
 
 ### Fase 4: Separação, Balanceamento e Escalonamento Seguro
 *   **Encoding:** Dumificação de variáveis textuais via One-Hot Encoding (`pd.get_dummies`) com `drop_first=True` para evitar a colinearidade.
