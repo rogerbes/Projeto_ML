@@ -1,6 +1,8 @@
 # ==============================================================================
 # FASE 1: ANÁLISE EXPLORATÓRIA DE DADOS (AED)
 # ==============================================================================
+# 1. Qual base de dados foi escolhida e qual o objetivo de negócio do modelo?
+
 """
 Importação das bibliotecas essenciais para manipulação de dados,
 visualização e Machine Learning. Carregamento do arquivo 'credit_risk_dataset.csv'.
@@ -69,6 +71,8 @@ O gráfico de barras provou um forte desbalanceamento: a maioria dos clientes é
 Isso exige o uso de técnicas de reamostragem (SMOTE) para o modelo não ficar viciado.
 O mapa de calor mostra correlação moderada entre o valor do empréstimo e a renda.
 """
+#2. Quais insights visuais e estatísticos mudaram sua visão na Análise Exploratória (EDA)?
+
 
 # ==============================================================================
 # FASE 2: TRATAMENTO E LIMPEZA (DATA PREP)
@@ -100,6 +104,8 @@ for col in df.select_dtypes(include=[np.number]).columns:
 # pois o KNN é sensível a distâncias euclidianas geradas por outliers extremos.
 df = df[df['person_age'] <= 100]
 df = df[df['person_emp_length'] <= 60]
+
+#3. Como você tratou os nulos e os outliers, considerando os impactos específicos no KNN e na Árvore?
 
 # ==============================================================================
 # FASE 3: FEATURE ENGINEERING (COLUNA CALCULADA)
@@ -187,7 +193,9 @@ for d in depths:
     test_acc = tree.score(X_test_tree, y_test)
     print(f"Árvore (Profundidade={d}) -> Acurácia Treino: {train_acc:.4f} | Teste: {test_acc:.4f}")
 
-    # ==============================================================================
+#4. Como você identificou e evitou a ocorrência de overfitting ao mudar os parâmetros do KNN (K) e da Árvore (max_depth)?
+
+# ==============================================================================
 # FASE 6: AVALIAÇÃO E VEREDITO DE NEGÓCIOS
 # ==============================================================================
 """
@@ -226,3 +234,5 @@ ax[1].set_ylabel('Real')
 plt.tight_layout()
 plt.savefig('confusion_matrices.png')
 plt.show()
+
+# 5. Olhando para a Matriz de Confusão, qual modelo você recomenda para a diretoria da empresa e por quê?
