@@ -64,7 +64,7 @@ plt.show()
 
 """
 INTERPRETAÇÃO DA EDA (TOMADA DE DECISÃO):
-A análise descritiva revelou outliers graves (ex: idades acima de 100 anos).
+A análise descritiva revela outliers graves (ex: idades acima de 100 anos).
 O gráfico de barras provou um forte desbalanceamento: a maioria dos clientes é adimplente.
 Isso exige o uso de técnicas de reamostragem (SMOTE) para o modelo não ficar viciado.
 O mapa de calor mostra correlação moderada entre o valor do empréstimo e a renda.
