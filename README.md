@@ -92,4 +92,4 @@ O modelo recomendado para ser colocado em ambiente produtivo é a **Árvore de D
 ## 🎬 5. Apresentação em Vídeo
 
 As explicações do pipeline de código, justificativas estatísticas e a defesa do veredito de negócios encontram-se disponíveis no link de vídeo abaixo:
-*   [Assista à Apresentação do Projeto no Drive Senai](https://drive.google.com/drive/folders/1HpbF0j9gBSvrLUJsCwAz8sQDoevIXxiY?usp=drive_link) *(Substitua este link pelo seu link de gravação)*
+*   [Assista à Apresentação do Projeto no Drive Senai](https://drive.google.com/drive/folders/1HpbF0j9gBSvrLUJsCwAz8sQDoevIXxiY?usp=drive_link)
